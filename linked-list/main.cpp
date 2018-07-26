@@ -58,6 +58,23 @@ public:
         return s;
     }
 
+    void insertNodeAfter(int position, int value)
+    {
+        ListNode* ptr = pHead;
+        int count = 0;
+        while (count != position)
+        {
+            ptr = ptr->next;
+            count++;
+        } // after the loop, ptr points to the node before target
+
+        ListNode* newNode = new ListNode(value);
+        newNode->next = ptr->next;
+        ptr->next = newNode;
+    }
+
+
+
     // Cannot delete head or tail with this as is.
     void deleteNodeAt(int position)
     {
@@ -101,6 +118,24 @@ public:
         // pTail itself. So now you point the tail to the new logical tail.
         pTail = ptr;
     } // ptr goes out of scope and is destroyed here.
+
+    void reverse()
+    {
+        ListNode* prev = NULL;
+        ListNode* curr = pHead;
+        ListNode* next = NULL;
+
+        pTail = pHead;
+        while (curr != NULL)
+        {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        pHead = prev;
+
+    }
 };
 
 
@@ -114,7 +149,13 @@ int main()
     List s;
     s.printLinkedList();
 
+    s.insertNodeAfter(0, 3);
+    s.printLinkedList();
+
     s.deleteNodeAt(2);
+    s.printLinkedList();
+
+    s.reverse();
     s.printLinkedList();
 
     s.deleteNodeAt(1);
@@ -125,6 +166,7 @@ int main()
 
     s.deleteTail();
     s.printLinkedList();
+
 
     /* Check solution */
 
