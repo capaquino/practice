@@ -25,15 +25,18 @@ int main()
     s.rotateCCW(1);
     s.print();
 
-
     s.remove(6);
     s.print();
     s.remove(5);
     s.print();
+    s.remove(9);
+    s.print();
+    s.remove(10);
+    s.print();
     s.remove(7);
     s.print();
-    //s.remove(4); // removes the head. Didn't implement that edge case.
-    //s.print();
+    s.remove(4);
+    s.print();
 
     /* Check solution */
 
