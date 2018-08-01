@@ -1,6 +1,6 @@
 #include <vector>
 #include <stack>
-#include <queue>
+#include<queue>
 #include <algorithm>
 #include <numeric>
 #include <iostream>
@@ -15,7 +15,7 @@ struct TreeNode
     TreeNode(int v) : val(v), left(NULL), right(NULL) {}
 };
 
-struct Solution
+struct Tree
 {
     // Where maxDepth is defined as the number of nodes passed through
     // on the path from the root to the farthest leaf node.
@@ -26,8 +26,10 @@ struct Solution
         int left = maxDepth(root->left);
         int right = maxDepth(root->right);
 
-        if (left > right) return left+1;
-        else return right+1; // if they are equal it doesnt matter
+        if (left > right)
+            return left+1;
+        else
+            return right+1; // if they are equal it doesnt matter
         // iteratively? needs queue
     }
 
@@ -53,34 +55,101 @@ struct Solution
         && isBSTUtil(root->right, root->val+1, max);
     }
 
-    void levelOrderTraversal(TreeNode* root)
+    void BFT(TreeNode* root)
     {
+        std::queue<TreeNode*> q;
+        q.push(root);
 
+        TreeNode* ptr = NULL;
+        while (!q.empty())
+        {
+            ptr = q.front();
+            q.pop();
+            std::cout << ptr->val << " ";
+
+            if (ptr->left != NULL)
+            {
+                q.push(ptr->left);
+            }
+            if (ptr->right != NULL)
+            {
+                q.push(ptr->right);
+            }
+        }
+        std::cout << std::endl;
     }
 
+    // Preorder
+    void DFTIterative(TreeNode* root)
+    {
+        std::stack<TreeNode*> s;
+        s.push(root);
 
+        TreeNode* ptr = NULL;
+        while(!s.empty())
+        {
+            ptr = s.top();
+            s.pop();
+            std::cout << ptr->val << " ";
 
+            if (ptr->right != NULL)
+            {
+                s.push(ptr->right);
+            }
+            if (ptr->left != NULL)
+            {
+                s.push(ptr->left);
+            }
+        }
+        std::cout << std::endl;
+    }
+
+    void DFTRecursive(TreeNode* root)
+    {
+        // Inorder
+        if (root->left != NULL) DFTRecursive(root->left);
+        std::cout << root->val << " ";
+        if (root->right != NULL) DFTRecursive(root->right);
+    }
 };
 
 
 int main()
 {
     /* Test case and answer generation */
-    TreeNode* root = new TreeNode(3);
-    root->left = new TreeNode(1);
+    // Level 1
+    TreeNode* root = new TreeNode(4);
+    // Level 2
+    root->left = new TreeNode(2);
     root->right = new TreeNode(20);
-    root->right->left = new TreeNode(4);
+    // Level 3
+    root->left->left = new TreeNode(1);
+    root->left->right = new TreeNode(3);
+    root->right->left = new TreeNode(5);
     root->right->right = new TreeNode(21);
 
+    //        4
+    //      /   \
+    //     2    20
+    //    /  \  /  \
+    //   1   3 5   21
+
     /* Invoke the solution */
-    Solution s;
-    std::cout << s.maxDepth(root) << std::endl;
+    Tree s;
+    std::cout << "Max Depth: " << s.maxDepth(root) << std::endl;
+
     std::cout << "Is BST ? (1 is true): " << s.isBST(root) << std::endl;
 
+    std::cout << "BFS: ";
+    s.BFT(root);
+
+    std::cout << "DFT (Recursive): ";
+    s.DFTRecursive(root);
+    std::cout << std::endl;
+
+    std::cout << "DFT (Iterative (Preorder)): ";
+    s.DFTIterative(root);
 
     /* Check solution */
-
-
-
     return 0;
 }

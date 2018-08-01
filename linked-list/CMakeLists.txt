@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_CXX_FLAGS "-fsanitize=address")
 
-add_executable(exec main.cpp)
+add_executable(exec main.cpp list.cpp)
