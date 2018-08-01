@@ -37,7 +37,6 @@ int main()
     s.print();
     s.remove(4);
     s.print();
-
     /* Check solution */
 
     return 0;
