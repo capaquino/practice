@@ -80,7 +80,7 @@ struct Tree
     }
 
     // Preorder
-    void DFTIterative(TreeNode* root)
+    void DFTIterativePreorder(TreeNode* root)
     {
         std::stack<TreeNode*> s;
         s.push(root);
@@ -102,6 +102,38 @@ struct Tree
             }
         }
         std::cout << std::endl;
+    }
+
+    void DFTIterativeInorder(TreeNode* root)
+    {
+        std::stack<TreeNode*> s;
+        TreeNode* ptr = root;
+
+        // As long as one is true, there is more work to be done
+        // Start: ptr is pointing to root, thus not NULL but stack is empty.
+        //
+        while (ptr != NULL || !s.empty())
+        {
+            // This part is what traverses down the left side of a tree and does
+            // the depth first searching and pushing of the nodes onto stack.
+            while (ptr != NULL)
+            {
+                s.push(ptr);
+                ptr = ptr->left;
+            }
+
+            // ptr is NULL at this point.
+            ptr = s.top();
+            s.pop();
+            std::cout << ptr->val << " ";
+            ptr = ptr->right;
+        }
+    }
+
+    void DFTIterativePostorder(TreeNode* root)
+    {
+        // longest and most complex of the three iteratives.
+
     }
 
     void DFTRecursive(TreeNode* root)
@@ -143,12 +175,22 @@ int main()
     std::cout << "BFS: ";
     s.BFT(root);
 
-    std::cout << "DFT (Recursive): ";
+    std::cout << "DFT (Recursive (Inorder)): ";
     s.DFTRecursive(root);
     std::cout << std::endl;
 
     std::cout << "DFT (Iterative (Preorder)): ";
-    s.DFTIterative(root);
+    s.DFTIterativePreorder(root);
+
+    std::cout << "DFT (Iterative (Inorder)): ";
+    s.DFTIterativeInorder(root);
+    std::cout << std::endl;
+
+    std::cout << "DFT (Iterative (Postorder)): ";
+    s.DFTIterativePostorder(root);
+    std::cout << std::endl;
+
+
 
     /* Check solution */
     return 0;

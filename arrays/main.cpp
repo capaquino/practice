@@ -11,7 +11,7 @@ class Solution
 {
 public:
     template <typename T>
-    void rotate(std::vector<T>& v, int steps)
+    void rightRotate(std::vector<T>& v, int steps)
     {
         for (int i = 0; i < steps; i++)
         {
@@ -46,11 +46,11 @@ int main()
     /* Invoke the solution */
     Solution s;
     s.print(v);
-    s.rotate(v,1);
+    s.rightRotate(v,1);
     s.print(v);
-    s.rotate(v,1);
+    s.rightRotate(v,1);
     s.print(v);
-    s.rotate(v,1);
+    s.rightRotate(v,1);
     s.print(v);
     /* Check solution */
 
